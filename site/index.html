@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRoyAI™ — The AI E-Otomation Agency</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --accent: #c8a96e;
+      --text: #e8e8e8;
+      --muted: #555;
+      --border: #1a1a1a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: "Helvetica Neue", sans-serif; }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 20px; font-weight: 700; color: var(--accent); }
+    .nav-logo sup { font-size: 10px; }
+    .nav-link { color: var(--muted); font-size: 14px; text-decoration: none; }
+    .nav-link:hover { color: var(--text); }
+
+    .hero {
+      max-width: 800px;
+      margin: 120px auto;
+      padding: 0 48px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 56px; font-weight: 700; line-height: 1.1; letter-spacing: -1px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 18px; color: var(--muted); margin: 24px 0 40px; line-height: 1.6; }
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .depts {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 0 48px;
+    }
+    .depts h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 32px; text-align: center; }
+    .dept-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .dept-box {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+    }
+    .dept-box .icon { font-size: 24px; margin-bottom: 8px; color: var(--accent); }
+    .dept-box .name { font-size: 13px; font-weight: 600; }
+    .dept-box .count { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 36px; }
+      .dept-grid { grid-template-columns: repeat(2, 1fr); }
+      nav { padding: 16px 24px; }
+      .hero, .depts { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">TRoyAI<sup>™</sup></div>
+    <a class="nav-link" href="https://dashboard.troyaiagent.com">Agent Command Centre →</a>
+  </nav>
+
+  <section class="hero">
+    <h1>The <span>AI Agency</span><br />that runs itself.</h1>
+    <p>
+      TRoyAI™ is a fully AI-agent-automated company.<br />
+      5 departments. 25 agents. Zero employees.<br />
+      Built and led by CEO I. Ertan Govdeli.
+    </p>
+    <a class="cta" href="https://dashboard.troyaiagent.com">Open Command Centre</a>
+  </section>
+
+  <section class="depts">
+    <h2>5 Departments · 5 Agents Each</h2>
+    <div class="dept-grid">
+      <div class="dept-box">
+        <div class="icon">⚙</div>
+        <div class="name">Operations</div>
+        <div class="count">5 agents</div>
+      </div>
+      <div class="dept-box">
+        <div class="icon">◈</div>
+        <div class="name">Sales</div>
+        <div class="count">5 agents</div>
+      </div>
+      <div class="dept-box">
+        <div class="icon">◉</div>
+        <div class="name">Marketing</div>
+        <div class="count">5 agents</div>
+      </div>
+      <div class="dept-box">
+        <div class="icon">◆</div>
+        <div class="name">Finance</div>
+        <div class="count">5 agents</div>
+      </div>
+      <div class="dept-box">
+        <div class="icon">▲</div>
+        <div class="name">CTO</div>
+        <div class="count">5 agents</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    TRoyAI™ E-Otomation Agency · troyaiagent.com · troyaiagent@gmail.com<br />
+    CEO: I. Ertan Govdeli · E-Otomation Holdings
+  </footer>
+</body>
+</html>

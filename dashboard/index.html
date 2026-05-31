@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRoyAI — Agent Command Centre</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">TRoyAI<span class="tm">™</span></div>
+      <div class="header-meta">
+        <span class="agency-name">E-Otomation Agency</span>
+        <span class="ceo">CEO: I. Ertan Govdeli</span>
+      </div>
+      <div id="status-dot" class="status-dot" title="System status"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-value">5</div>
+        <div class="kpi-label">Departments</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">25</div>
+        <div class="kpi-label">Active Agents</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" id="tasks-count">—</div>
+        <div class="kpi-label">Tasks Run</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" id="uptime">Online</div>
+        <div class="kpi-label">Agency Status</div>
+      </div>
+    </section>
+
+    <section class="departments-grid">
+      <div class="dept-card" data-dept="ops">
+        <div class="dept-header">
+          <span class="dept-icon">⚙</span>
+          <span class="dept-name">Operations</span>
+        </div>
+        <ul class="agent-list">
+          <li>Executive Assistant</li>
+          <li>Project Manager</li>
+          <li>Resource Manager</li>
+          <li>Report Generator</li>
+          <li>Process Optimizer</li>
+        </ul>
+        <button class="run-btn" data-dept="ops" data-task="daily_briefing">Run Briefing</button>
+      </div>
+
+      <div class="dept-card" data-dept="sales">
+        <div class="dept-header">
+          <span class="dept-icon">◈</span>
+          <span class="dept-name">Sales</span>
+        </div>
+        <ul class="agent-list">
+          <li>Lead Generator</li>
+          <li>Lead Qualifier</li>
+          <li>Proposal Writer</li>
+          <li>Deal Closer</li>
+          <li>CRM Manager</li>
+        </ul>
+        <button class="run-btn" data-dept="sales" data-task="run_pipeline">Run Pipeline</button>
+      </div>
+
+      <div class="dept-card" data-dept="marketing">
+        <div class="dept-header">
+          <span class="dept-icon">◉</span>
+          <span class="dept-name">Marketing</span>
+        </div>
+        <ul class="agent-list">
+          <li>Content Creator</li>
+          <li>SEO Optimizer</li>
+          <li>Social Media Manager</li>
+          <li>Campaign Manager</li>
+          <li>Analytics Reporter</li>
+        </ul>
+        <button class="run-btn" data-dept="marketing" data-task="run_campaign">Run Campaign</button>
+      </div>
+
+      <div class="dept-card" data-dept="finance">
+        <div class="dept-header">
+          <span class="dept-icon">◆</span>
+          <span class="dept-name">Finance</span>
+        </div>
+        <ul class="agent-list">
+          <li>Bookkeeper</li>
+          <li>Budget Planner</li>
+          <li>Invoice Manager</li>
+          <li>Financial Reporter</li>
+          <li>Cost Optimizer</li>
+        </ul>
+        <button class="run-btn" data-dept="finance" data-task="generate_report">Run Report</button>
+      </div>
+
+      <div class="dept-card" data-dept="cto">
+        <div class="dept-header">
+          <span class="dept-icon">▲</span>
+          <span class="dept-name">CTO</span>
+        </div>
+        <ul class="agent-list">
+          <li>Software Developer</li>
+          <li>Code Reviewer</li>
+          <li>System Architect</li>
+          <li>Security Auditor</li>
+          <li>DevOps Engineer</li>
+        </ul>
+        <button class="run-btn" data-dept="cto" data-task="run_task">Run Task</button>
+      </div>
+    </section>
+
+    <section class="task-section">
+      <h2>Recent Tasks</h2>
+      <div id="task-list">
+        <p class="empty-state">No tasks yet. Run an agent above.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+name = "eotomation-api"
+main = "index.js"
+compatibility_date = "2024-01-01"
+account_id = "7f9d6ab3d14d37e9fc6f4cec7527a94a"
+
+[vars]
+AGENCY_NAME = "TRoyAI E-Otomation Agency"
+CEO = "I. Ertan Govdeli"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "eotomation-db"
+database_id = "877c18a3-dedb-4299-9207-f999b5a0626f"
+
+[[routes]]
+pattern = "api.troyaiagent.com/*"
+zone_name = "troyaiagent.com"
