@@ -10,3 +10,16 @@ venv/
 .DS_Store
 node_modules/
 .wrangler/
+
+# Shared agent memory store (local LanceDB files — not source, and may contain
+# recorded agent learnings that shouldn't be committed)
+agency/core/.memory_store/
+
+# Gmail OAuth credentials (agency/departments/email.py)
+client_secret.json
+.gmail_token.json
+.gmail_token_agent.json
+
+# Personal files that don't belong in a company code repo
+.obsidian/
+TEP S2-2026/
