@@ -90,7 +90,88 @@ document.querySelectorAll(".run-btn").forEach((btn) => {
   btn.dataset.label = btn.textContent;
 });
 
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str || "";
+  return div.innerHTML;
+}
+
+function renderMessages(messages) {
+  if (!messages.length) return '<p class="empty-state">No messages.</p>';
+  return messages
+    .map(
+      (m) => `
+    <div class="email-item">
+      <span class="email-from">${escapeHtml(m.from)}</span>
+      <span class="email-subject">${escapeHtml(m.subject)}</span>
+      <span class="email-snippet">${escapeHtml(m.snippet)}</span>
+    </div>`
+    )
+    .join("");
+}
+
+async function loadInbox() {
+  const container = document.getElementById("email-accounts");
+  if (!container) return;
+  try {
+    const res = await fetch("/api/inbox");
+    if (!res.ok) {
+      container.innerHTML = '<p class="empty-state">Failed to load inbox.</p>';
+      return;
+    }
+    const data = await res.json();
+    const accounts = data.accounts || [];
+
+    container.innerHTML = accounts
+      .map((acc) => {
+        if (acc.status === "not_connected") {
+          return `
+          <div class="email-account">
+            <div class="email-account-header">
+              <span class="email-account-name">${escapeHtml(acc.label)}</span>
+              <span class="email-account-address">${escapeHtml(acc.email)}</span>
+              <span class="email-status not-connected">Not connected</span>
+            </div>
+          </div>`;
+        }
+        if (acc.status === "error") {
+          return `
+          <div class="email-account">
+            <div class="email-account-header">
+              <span class="email-account-name">${escapeHtml(acc.label)}</span>
+              <span class="email-account-address">${escapeHtml(acc.email)}</span>
+              <span class="email-status error">Error: ${escapeHtml(acc.error)}</span>
+            </div>
+          </div>`;
+        }
+        return `
+        <div class="email-account">
+          <div class="email-account-header">
+            <span class="email-account-name">${escapeHtml(acc.label)}</span>
+            <span class="email-account-address">${escapeHtml(acc.email)}</span>
+            <span class="email-status connected">Connected</span>
+          </div>
+          <div class="email-columns">
+            <div class="email-column">
+              <h4>Inbox</h4>
+              ${renderMessages(acc.inbox)}
+            </div>
+            <div class="email-column">
+              <h4>Sent</h4>
+              ${renderMessages(acc.sent)}
+            </div>
+          </div>
+        </div>`;
+      })
+      .join("");
+  } catch {
+    container.innerHTML = '<p class="empty-state">Failed to load inbox.</p>';
+  }
+}
+
 checkStatus();
 loadTasks();
+loadInbox();
 setInterval(loadTasks, 30000);
 setInterval(checkStatus, 60000);
+setInterval(loadInbox, 60000);
