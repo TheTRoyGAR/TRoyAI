@@ -21,7 +21,7 @@
   <main>
     <section class="kpi-row">
       <div class="kpi-card">
-        <div class="kpi-value">5</div>
+        <div class="kpi-value">7</div>
         <div class="kpi-label">Departments</div>
       </div>
       <div class="kpi-card">
@@ -112,6 +112,33 @@
           <li>DevOps Engineer</li>
         </ul>
         <button class="run-btn" data-dept="cto" data-task="run_task">Run Task</button>
+      </div>
+
+      <div class="dept-card" data-dept="management">
+        <div class="dept-header">
+          <span class="dept-icon">◎</span>
+          <span class="dept-name">Management</span>
+        </div>
+        <p class="dept-desc">The CEO Assistant — intakes every brief, delegates it to the right department, reviews the output, and signs off before anything ships.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">DELEGATE</span>
+          <span class="skill-tag">REVIEW</span>
+          <span class="skill-tag">FINAL_QA</span>
+        </div>
+        <button class="run-btn info-btn" disabled title="No agent backend built yet for this department">Not yet automated</button>
+      </div>
+
+      <div class="dept-card" data-dept="email">
+        <div class="dept-header">
+          <span class="dept-icon">✉</span>
+          <span class="dept-name">Email</span>
+        </div>
+        <p class="dept-desc">Real inbox triage across every connected account, and reply drafts grounded in the actual thread — never sent without sign-off.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">INBOX_TRIAGE</span>
+          <span class="skill-tag">DRAFT_REPLY</span>
+        </div>
+        <button class="run-btn info-btn" onclick="document.getElementById('email-accounts').scrollIntoView({behavior:'smooth'})">View Inboxes ↓</button>
       </div>
     </section>
 

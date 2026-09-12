@@ -9,6 +9,14 @@
 // (real state) rather than faked. Add the matching *_REFRESH_TOKEN secret
 // (Cloudflare Pages > Settings > Environment variables) as each account is
 // connected via the OAuth Playground / consent flow.
+//
+// /api/inbox (no query) returns just connection status for all accounts —
+// zero Gmail API calls, so it can never hit the Workers per-invocation
+// subrequest limit. /api/inbox?account=<email> fetches real messages for
+// ONE account per request (~13 subrequests, well under the ~50 cap) — the
+// frontend calls this once per connected account instead of all at once,
+// which is what caused "Too many subrequests" when all 11 were fetched in
+// a single invocation.
 
 const ACCOUNTS = [
   { email: "agency@troytravelagency.com", tokenEnvVar: "AGENCY_TROYTRAVELAGENCY_REFRESH_TOKEN", label: "TRoy Travel - Primary" },
@@ -23,6 +31,8 @@ const ACCOUNTS = [
   { email: "goupoftroy@gmail.com", tokenEnvVar: "GOUPOFTROY_REFRESH_TOKEN", label: "Group of TRoy" },
   { email: "ertangovdeli@gmail.com", tokenEnvVar: "ERTANGOVDELI_REFRESH_TOKEN", label: "Ertan Govdeli (Personal)" },
 ];
+
+const MAX_MESSAGES_PER_FOLDER = 5;
 
 async function getAccessToken(env, refreshToken) {
   const resp = await fetch("https://oauth2.googleapis.com/token", {
@@ -42,63 +52,78 @@ async function getAccessToken(env, refreshToken) {
 
 async function fetchMessages(accessToken, labelId) {
   const listResp = await fetch(
-    `https://gmail.googleapis.com/gmail/v1/users/me/messages?labelIds=${labelId}&maxResults=10`,
+    `https://gmail.googleapis.com/gmail/v1/users/me/messages?labelIds=${labelId}&maxResults=${MAX_MESSAGES_PER_FOLDER}`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
   if (!listResp.ok) throw new Error(`list_failed:${listResp.status}`);
   const listData = await listResp.json();
   const ids = (listData.messages || []).map((m) => m.id);
 
-  const messages = await Promise.all(
-    ids.map(async (id) => {
-      const msgResp = await fetch(
-        `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
-      if (!msgResp.ok) return null;
-      const msg = await msgResp.json();
-      const headers = Object.fromEntries((msg.payload?.headers || []).map((h) => [h.name, h.value]));
-      return {
-        id: msg.id,
-        from: headers.From || "",
-        subject: headers.Subject || "(no subject)",
-        date: headers.Date || "",
-        snippet: msg.snippet || "",
-      };
-    })
-  );
-  return messages.filter(Boolean);
+  const messages = [];
+  for (const id of ids) {
+    const msgResp = await fetch(
+      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    if (!msgResp.ok) continue;
+    const msg = await msgResp.json();
+    const headers = Object.fromEntries((msg.payload?.headers || []).map((h) => [h.name, h.value]));
+    messages.push({
+      id: msg.id,
+      from: headers.From || "",
+      subject: headers.Subject || "(no subject)",
+      date: headers.Date || "",
+      snippet: msg.snippet || "",
+    });
+  }
+  return messages;
 }
 
-async function handleInbox(env) {
-  const results = await Promise.all(
-    ACCOUNTS.map(async (account) => {
-      const refreshToken = env[account.tokenEnvVar];
-      if (!refreshToken) {
-        return { email: account.email, label: account.label, status: "not_connected", inbox: [], sent: [] };
-      }
-      try {
-        const accessToken = await getAccessToken(env, refreshToken);
-        const [inbox, sent] = await Promise.all([
-          fetchMessages(accessToken, "INBOX"),
-          fetchMessages(accessToken, "SENT"),
-        ]);
-        return { email: account.email, label: account.label, status: "connected", inbox, sent };
-      } catch (err) {
-        return {
-          email: account.email,
-          label: account.label,
-          status: "error",
-          error: err instanceof Error ? err.message : String(err),
-          inbox: [],
-          sent: [],
-        };
-      }
-    })
-  );
+function handleInboxList(env) {
+  const results = ACCOUNTS.map((account) => ({
+    email: account.email,
+    label: account.label,
+    status: env[account.tokenEnvVar] ? "connected" : "not_connected",
+  }));
   return new Response(JSON.stringify({ success: true, accounts: results }), {
     headers: { "Content-Type": "application/json" },
   });
+}
+
+async function handleInboxAccount(env, email) {
+  const account = ACCOUNTS.find((a) => a.email === email);
+  if (!account) {
+    return new Response(JSON.stringify({ success: false, error: "unknown_account" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  const refreshToken = env[account.tokenEnvVar];
+  if (!refreshToken) {
+    return new Response(JSON.stringify({ success: true, email, status: "not_connected", inbox: [], sent: [] }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  try {
+    const accessToken = await getAccessToken(env, refreshToken);
+    const inbox = await fetchMessages(accessToken, "INBOX");
+    const sent = await fetchMessages(accessToken, "SENT");
+    return new Response(JSON.stringify({ success: true, email, status: "connected", inbox, sent }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({
+        success: true,
+        email,
+        status: "error",
+        error: err instanceof Error ? err.message : String(err),
+        inbox: [],
+        sent: [],
+      }),
+      { headers: { "Content-Type": "application/json" } }
+    );
+  }
 }
 
 export default {
@@ -133,7 +158,8 @@ export default {
 
     const url = new URL(request.url);
     if (url.pathname === "/api/inbox") {
-      return handleInbox(env);
+      const account = url.searchParams.get("account");
+      return account ? handleInboxAccount(env, account) : handleInboxList(env);
     }
 
     return env.ASSETS.fetch(request);

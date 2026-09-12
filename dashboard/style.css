@@ -226,6 +226,19 @@ main { max-width: 1200px; margin: 0 auto; padding: 32px; }
   main { padding: 16px; }
 }
 
+.dept-desc { font-size: 12px; color: var(--text-muted); margin: 8px 0; }
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.skill-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
 .email-subtitle { font-size: 12px; color: var(--text-muted); margin: -8px 0 16px; }
 
 .email-account {
@@ -255,6 +268,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 32px; }
 .email-status.connected { color: var(--success); border-color: var(--success); }
 .email-status.not-connected { color: var(--text-muted); border-color: var(--border); }
 .email-status.error { color: var(--error); border-color: var(--error); }
+.email-status.loading { color: var(--accent); border-color: var(--accent-dim); }
 
 .email-columns {
   display: grid;
