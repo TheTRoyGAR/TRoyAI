@@ -1,5 +1,5 @@
 const API = "https://api.troyaiagent.com";
-const API_KEY = "TRoy-C48tUyrmeLMES4IjKqZjH6L5sfziFiU";
+const API_KEY = "TRoy-3fdc2d7e6f8e59dfc45946e1a0a483c1";
 
 const headers = {
   "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function formatTime(iso) {
   return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 }
 
-document.querySelectorAll(".run-btn").forEach((btn) => {
+document.querySelectorAll(".run-btn:not(.info-btn)").forEach((btn) => {
   btn.addEventListener("click", () => {
     const dept = btn.dataset.dept;
     const task = btn.dataset.task;
@@ -86,7 +86,7 @@ document.querySelectorAll(".run-btn").forEach((btn) => {
 });
 
 // Store original button labels
-document.querySelectorAll(".run-btn").forEach((btn) => {
+document.querySelectorAll(".run-btn:not(.info-btn)").forEach((btn) => {
   btn.dataset.label = btn.textContent;
 });
 
@@ -110,6 +110,62 @@ function renderMessages(messages) {
     .join("");
 }
 
+function accountCardHtml(acc) {
+  if (acc.status === "not_connected") {
+    return `
+    <div class="email-account-header">
+      <span class="email-account-name">${escapeHtml(acc.label)}</span>
+      <span class="email-account-address">${escapeHtml(acc.email)}</span>
+      <span class="email-status not-connected">Not connected</span>
+    </div>`;
+  }
+  if (acc.status === "error") {
+    return `
+    <div class="email-account-header">
+      <span class="email-account-name">${escapeHtml(acc.label)}</span>
+      <span class="email-account-address">${escapeHtml(acc.email)}</span>
+      <span class="email-status error">Error: ${escapeHtml(acc.error)}</span>
+    </div>`;
+  }
+  if (acc.status === "loading") {
+    return `
+    <div class="email-account-header">
+      <span class="email-account-name">${escapeHtml(acc.label)}</span>
+      <span class="email-account-address">${escapeHtml(acc.email)}</span>
+      <span class="email-status loading">Loading…</span>
+    </div>`;
+  }
+  return `
+  <div class="email-account-header">
+    <span class="email-account-name">${escapeHtml(acc.label)}</span>
+    <span class="email-account-address">${escapeHtml(acc.email)}</span>
+    <span class="email-status connected">Connected</span>
+  </div>
+  <div class="email-columns">
+    <div class="email-column">
+      <h4>Inbox</h4>
+      ${renderMessages(acc.inbox || [])}
+    </div>
+    <div class="email-column">
+      <h4>Sent</h4>
+      ${renderMessages(acc.sent || [])}
+    </div>
+  </div>`;
+}
+
+async function loadAccountMessages(email) {
+  const el = document.querySelector(`.email-account[data-email="${CSS.escape(email)}"]`);
+  if (!el) return;
+  try {
+    const res = await fetch(`/api/inbox?account=${encodeURIComponent(email)}`);
+    if (!res.ok) return;
+    const acc = await res.json();
+    el.innerHTML = accountCardHtml(acc);
+  } catch {
+    // leave the "loading" state as-is on network failure
+  }
+}
+
 async function loadInbox() {
   const container = document.getElementById("email-accounts");
   if (!container) return;
@@ -123,47 +179,22 @@ async function loadInbox() {
     const accounts = data.accounts || [];
 
     container.innerHTML = accounts
-      .map((acc) => {
-        if (acc.status === "not_connected") {
-          return `
-          <div class="email-account">
-            <div class="email-account-header">
-              <span class="email-account-name">${escapeHtml(acc.label)}</span>
-              <span class="email-account-address">${escapeHtml(acc.email)}</span>
-              <span class="email-status not-connected">Not connected</span>
-            </div>
-          </div>`;
-        }
-        if (acc.status === "error") {
-          return `
-          <div class="email-account">
-            <div class="email-account-header">
-              <span class="email-account-name">${escapeHtml(acc.label)}</span>
-              <span class="email-account-address">${escapeHtml(acc.email)}</span>
-              <span class="email-status error">Error: ${escapeHtml(acc.error)}</span>
-            </div>
-          </div>`;
-        }
-        return `
-        <div class="email-account">
-          <div class="email-account-header">
-            <span class="email-account-name">${escapeHtml(acc.label)}</span>
-            <span class="email-account-address">${escapeHtml(acc.email)}</span>
-            <span class="email-status connected">Connected</span>
-          </div>
-          <div class="email-columns">
-            <div class="email-column">
-              <h4>Inbox</h4>
-              ${renderMessages(acc.inbox)}
-            </div>
-            <div class="email-column">
-              <h4>Sent</h4>
-              ${renderMessages(acc.sent)}
-            </div>
-          </div>
-        </div>`;
-      })
+      .map(
+        (acc) =>
+          `<div class="email-account" data-email="${escapeHtml(acc.email)}">${accountCardHtml(
+            acc.status === "connected" ? { ...acc, status: "loading" } : acc
+          )}</div>`
+      )
       .join("");
+
+    // Fetch real messages one connected account at a time — fetching all 11
+    // in parallel from one Worker invocation hits Cloudflare's per-request
+    // subrequest limit, so each account gets its own request instead.
+    for (const acc of accounts) {
+      if (acc.status === "connected") {
+        await loadAccountMessages(acc.email);
+      }
+    }
   } catch {
     container.innerHTML = '<p class="empty-state">Failed to load inbox.</p>';
   }
