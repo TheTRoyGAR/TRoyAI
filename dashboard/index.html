@@ -25,7 +25,7 @@
         <div class="kpi-label">Departments</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-value">25</div>
+        <div class="kpi-value">31</div>
         <div class="kpi-label">Active Agents</div>
       </div>
       <div class="kpi-card">
@@ -114,31 +114,32 @@
         <button class="run-btn" data-dept="cto" data-task="run_task">Run Task</button>
       </div>
 
-      <div class="dept-card" data-dept="management">
-        <div class="dept-header">
-          <span class="dept-icon">◎</span>
-          <span class="dept-name">Management</span>
-        </div>
-        <p class="dept-desc">The CEO Assistant — intakes every brief, delegates it to the right department, reviews the output, and signs off before anything ships.</p>
-        <div class="skill-tags">
-          <span class="skill-tag">DELEGATE</span>
-          <span class="skill-tag">REVIEW</span>
-          <span class="skill-tag">FINAL_QA</span>
-        </div>
-        <button class="run-btn info-btn" disabled title="No agent backend built yet for this department">Not yet automated</button>
-      </div>
-
-      <div class="dept-card" data-dept="email">
+      <div class="dept-card" data-dept="email-support">
         <div class="dept-header">
           <span class="dept-icon">✉</span>
-          <span class="dept-name">Email</span>
+          <span class="dept-name">Email (Support)</span>
         </div>
-        <p class="dept-desc">Real inbox triage across every connected account, and reply drafts grounded in the actual thread — never sent without sign-off.</p>
-        <div class="skill-tags">
-          <span class="skill-tag">INBOX_TRIAGE</span>
-          <span class="skill-tag">DRAFT_REPLY</span>
+        <p class="dept-desc">troyaiagent@gmail.com — internal support inbox. Drafts for review, never auto-sends.</p>
+        <ul class="agent-list">
+          <li>Email Triage Lead</li>
+          <li>Reply Drafter</li>
+          <li>Label Manager</li>
+        </ul>
+        <button class="run-btn info-btn" onclick="document.getElementById('email-accounts').scrollIntoView({behavior:'smooth'})">View Inbox ↓</button>
+      </div>
+
+      <div class="dept-card" data-dept="email-agent">
+        <div class="dept-header">
+          <span class="dept-icon">✉</span>
+          <span class="dept-name">Email (Agent)</span>
         </div>
-        <button class="run-btn info-btn" onclick="document.getElementById('email-accounts').scrollIntoView({behavior:'smooth'})">View Inboxes ↓</button>
+        <p class="dept-desc">agent@troyaiagent.com — external-facing business address. Drafts for review, never auto-sends.</p>
+        <ul class="agent-list">
+          <li>Email Triage Lead</li>
+          <li>Reply Drafter</li>
+          <li>Label Manager</li>
+        </ul>
+        <button class="run-btn info-btn" onclick="document.getElementById('email-accounts').scrollIntoView({behavior:'smooth'})">View Inbox ↓</button>
       </div>
     </section>
 
