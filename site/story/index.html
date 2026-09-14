@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TRoyAI™ — Our Story</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131110;
+    --border: #221f1a;
+    --accent: #c8a96e;
+    --accent-soft: rgba(200, 169, 110, 0.12);
+    --accent-line: rgba(200, 169, 110, 0.35);
+    --text: #e9e6df;
+    --muted: #8a8276;
+    --muted-dim: #5c574d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: Georgia, "Iowan Old Style", serif; font-weight: 400; text-wrap: balance; }
+  .mono { font-family: ui-monospace, "SF Mono", Consolas, monospace; }
+  a { color: var(--accent); }
+
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 48px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: rgba(10,10,10,0.9); backdrop-filter: blur(8px); z-index: 10;
+  }
+  .nav-logo { font-size: 18px; font-weight: 700; color: var(--accent); text-decoration: none; }
+
+  section { max-width: 900px; margin: 0 auto; padding: 90px 32px; border-bottom: 1px solid var(--border); }
+  .eyebrow { font-family: ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  p { line-height: 1.7; }
+  .lede { font-size: 17px; color: var(--muted); max-width: 640px; }
+
+  .hero { padding-top: 110px; padding-bottom: 70px; }
+  .hero h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.08; max-width: 780px; }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero .sub { margin-top: 22px; font-size: 17px; color: var(--muted); max-width: 560px; }
+
+  .timeline { margin-top: 36px; border-left: 1px solid var(--border); padding-left: 30px; display: flex; flex-direction: column; gap: 30px; }
+  .tl-item { position: relative; }
+  .tl-item::before { content: ""; position: absolute; left: -35px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--accent); }
+  .tl-year { font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--accent); margin-bottom: 5px; }
+  .tl-item h3 { font-size: 18px; margin-bottom: 6px; }
+  .tl-item p { font-size: 14.5px; color: var(--muted); }
+
+  .dept-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; }
+  .dept-card { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 16px 14px; }
+  .dept-card .icon { color: var(--accent); font-size: 17px; margin-bottom: 8px; display: block; }
+  .dept-card .name { font-size: 13px; font-weight: 600; }
+  .dept-card .n { font-size: 10.5px; color: var(--muted-dim); margin-top: 3px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 32px; }
+  .stat-cell { background: var(--surface); padding: 20px 16px; }
+  .stat-cell .num { font-family: ui-monospace, monospace; font-size: 27px; color: var(--accent); }
+  .stat-cell .label { font-size: 10.5px; color: var(--muted); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .honest-box { margin-top: 32px; border: 1px solid var(--accent-line); background: var(--accent-soft); border-radius: 8px; padding: 20px 24px; }
+  .honest-box .eyebrow { margin-bottom: 8px; }
+  .honest-box p { font-size: 14.5px; color: var(--text); }
+  .honest-box p + p { margin-top: 8px; color: var(--muted); font-size: 13.5px; }
+
+  .vibe-evidence { margin-top: 24px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 8px 20px; }
+  .vibe-row { display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .vibe-row:last-child { border-bottom: none; }
+  .vibe-row .lang { font-family: ui-monospace, monospace; font-size: 12px; color: var(--accent); width: 160px; flex-shrink: 0; }
+  .vibe-row .note { font-size: 13px; color: var(--muted); flex: 1; min-width: 200px; }
+
+  .closing { text-align: left; border-bottom: none; }
+  .closing h2 { font-size: clamp(26px, 3.6vw, 38px); line-height: 1.15; }
+  .closing .sign { margin-top: 36px; font-family: Georgia, serif; font-size: 16px; }
+  .closing .contact { margin-top: 28px; font-size: 13px; color: var(--muted); line-height: 2; }
+  .cta { display: inline-block; margin-top: 28px; background: var(--accent); color: #000; padding: 12px 28px; border-radius: 4px; font-weight: 600; font-size: 14px; text-decoration: none; }
+
+  .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.shown { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .fade-in { transition: none; opacity: 1; transform: none; } }
+
+  @media (max-width: 700px) {
+    section { padding: 56px 24px; }
+    nav { padding: 16px 24px; }
+    .dept-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">TRoyAI<sup>™</sup></a>
+    <a href="/" style="color: var(--muted); font-size: 14px; text-decoration: none;">← Home</a>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Our Story</div>
+    <h1>Twenty-five years of building companies, now rebuilt as <em>AI agents</em>.</h1>
+    <p class="sub">Prepared by the founder — one owner, four industries, two countries, twenty-five years.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The founder</div>
+    <div class="timeline">
+      <div class="tl-item fade-in">
+        <div class="tl-year">1998 — Turkey</div>
+        <h3>Troy Travel Agency &amp; Troy Shipping Agency</h3>
+        <p>Founded together as part of a group of companies — the first time running travel and maritime/shipping operations as owner-operator, not employee.</p>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="tl-year">2011 — Australia</div>
+        <h3>Relocation to Darwin, NT</h3>
+        <p>Moved to Australia and restarted — registering a new online travel agency here, managed in part through a free Google Business listing.</p>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="tl-year">2022–2023</div>
+        <h3>Small-Business Mentorship Program</h3>
+        <p>Awarded a three-year free membership with a local small-business support program.</p>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="tl-year">2026 — Today</div>
+        <h3>E-Automation / TRoy Group™</h3>
+        <p>Same owner, same instinct to run every part of the business personally — now applied through AI agents instead of additional headcount, starting with TRoyAI.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">The build — TRoyAI™</div>
+    <h2 style="font-size: clamp(24px,3.4vw,32px); margin-bottom: 14px;">A working company, run entirely by AI agents.</h2>
+    <p class="lede">Built and operated solo — seven departments, thirty-one agents, a shared memory system agents read and write across department lines, and a real research tool that finds and scores genuine prospect companies. The research pipeline never auto-sends — it found and ranked ten real, named Darwin businesses with observable automation gaps, and six received genuine outreach after founder review.</p>
+
+    <div class="dept-grid">
+      <div class="dept-card fade-in"><span class="icon">⚙</span><div class="name">Operations</div><div class="n">5 agents</div></div>
+      <div class="dept-card fade-in"><span class="icon">◈</span><div class="name">Sales</div><div class="n">5 agents</div></div>
+      <div class="dept-card fade-in"><span class="icon">◉</span><div class="name">Marketing</div><div class="n">5 agents</div></div>
+      <div class="dept-card fade-in"><span class="icon">◆</span><div class="name">Finance</div><div class="n">5 agents</div></div>
+      <div class="dept-card fade-in"><span class="icon">▲</span><div class="name">CTO</div><div class="n">5 agents</div></div>
+      <div class="dept-card fade-in"><span class="icon">✉</span><div class="name">Email (Support)</div><div class="n">3 agents</div></div>
+      <div class="dept-card fade-in"><span class="icon">✉</span><div class="name">Email (Agent)</div><div class="n">3 agents</div></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-cell"><div class="num">7</div><div class="label">Departments</div></div>
+      <div class="stat-cell"><div class="num">31</div><div class="label">Agents</div></div>
+      <div class="stat-cell"><div class="num">1</div><div class="label">Employee</div></div>
+      <div class="stat-cell"><div class="num">0</div><div class="label">Paying customers</div></div>
+    </div>
+
+    <div class="honest-box fade-in">
+      <div class="eyebrow" style="margin-bottom:0;">Honest state, not a pitch exaggeration</div>
+      <p>TRoyAI is live and functioning — real infrastructure, real automated email handling, a real research pipeline. It has not yet taken a paying customer; the site only went live this year.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">What's next — TRoyVibe™</div>
+    <h2 style="font-size: clamp(24px,3.4vw,32px); margin-bottom: 14px;">Teaching agents — and people — to actually understand each other.</h2>
+    <p class="lede">TRoyAI's departments already share knowledge with each other — Sales has recalled Marketing's earlier research on the same client without redoing the work. But what actually gets shared is a raw wall of unstructured text: no intent, no confidence marker, no honest flag for uncertainty. TRoyVibe™ fixes that in both directions — a person's natural speech in any language, and agent-to-agent memory.</p>
+
+    <div class="stat-row" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="stat-cell"><div class="num">6</div><div class="label">Languages tested</div></div>
+      <div class="stat-cell"><div class="num">4</div><div class="label">Script families</div></div>
+      <div class="stat-cell"><div class="num">3</div><div class="label">Bugs found &amp; fixed</div></div>
+    </div>
+
+    <div class="vibe-evidence fade-in">
+      <div class="vibe-row"><span class="lang mono">Turkish → Turkish</span><span class="note">Correctly caught a hedge word ("galiba") mid-sentence, asked the right question instead of guessing.</span></div>
+      <div class="vibe-row"><span class="lang mono">English → Turkish</span><span class="note">Proved input and output language are fully decoupled — set once, honored regardless of input.</span></div>
+      <div class="vibe-row"><span class="lang mono">Arabic (right-to-left)</span><span class="note">Correct on the first try. No script-direction issues.</span></div>
+      <div class="vibe-row"><span class="lang mono">Chinese, Japanese</span><span class="note">Logographic and mixed scripts handled correctly, including cross-script decoupling.</span></div>
+    </div>
+
+    <div class="honest-box fade-in">
+      <div class="eyebrow" style="margin-bottom:0;">Status, honestly</div>
+      <p>A working converter, run for real against actual TRoyAI shared-memory records and six languages across four script families — including deliberately vague input designed to make it guess. It refused to, every time.</p>
+      <p>Not yet integrated into TRoyAI's live agents. Hindi, Korean, and several other languages remain untested.</p>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="eyebrow">Closing</div>
+    <h2>Twenty-five years of running companies by hand. Now building the version that doesn't need hands at all.</h2>
+    <div class="sign">— I. Ertan Govdeli, Founder &amp; CEO</div>
+    <div class="contact">troyaiagent.com · agent@troyaiagent.com · ABN 30 302 098 137</div>
+    <a class="cta" href="https://dashboard.troyaiagent.com">Open Command Centre →</a>
+  </section>
+
+  <script>
+    var els = document.querySelectorAll('.fade-in');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('shown'); });
+    }, { threshold: 0.15 });
+    els.forEach(function (el) { io.observe(el); });
+  </script>
+</body>
+</html>
