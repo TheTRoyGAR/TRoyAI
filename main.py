@@ -23,6 +23,7 @@ def main():
         print("  marketing <brief>     — Run marketing campaign")
         print("  finance [period]      — Generate finance report")
         print("  cto <brief>           — Run CTO task")
+        print("  intake <brief>        — Full orchestration: TRoyVibe read, delegate, review, QA")
         print("  status                — Agency status")
         return
 
@@ -39,6 +40,8 @@ def main():
         print(agency.run_finance_report(args or "monthly"))
     elif command == "cto":
         print(agency.run_cto_task(args))
+    elif command == "intake":
+        print(agency.intake_brief(args))
     elif command == "status":
         print(json.dumps(agency.status(), indent=2))
     else:

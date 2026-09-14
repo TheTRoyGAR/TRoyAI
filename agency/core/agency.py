@@ -18,6 +18,13 @@ class TRoyAIAgency:
         self.finance = FinanceDepartment()
         self.cto = CTODepartment()
 
+        from agency.core.orchestrator import CoreOrchestrator
+        self.orchestrator = CoreOrchestrator(self)
+
+    def intake_brief(self, brief: str) -> str:
+        """Full orchestration: TRoyVibe™ read, delegate, review, QA."""
+        return self.orchestrator.intake_brief(brief)
+
     def run_daily_briefing(self, context: str = "") -> str:
         return self.operations.daily_briefing(context)
 
