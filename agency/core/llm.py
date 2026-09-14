@@ -13,7 +13,13 @@ def get_llm(tier: str = "sonnet") -> LLM:
     # here verbatim, so setting it makes every single call fail with
     # "unexpected keyword argument 'temperature'" — found by actually running
     # a real LLM call, not assumed.
+    # Without an explicit max_tokens, this defaults to 4096 — long tool calls
+    # (e.g. a full report written as one FileWriterTool `content` argument)
+    # get truncated mid-generation into malformed JSON, which CrewAI then
+    # retries forever instead of failing, burning real API spend on every
+    # retry without ever completing.
     return LLM(
         model=model,
         api_key=os.getenv("ANTHROPIC_API_KEY"),
+        max_tokens=8192,
     )
