@@ -6,10 +6,10 @@ from agency.departments.cto import CTODepartment
 
 
 class TRoyAIAgency:
-    """TRoyAI E-Otomation Agency — 5 departments, 25 agents, zero employees."""
+    """TRoyAI E-Automation Agency — 5 departments, 25 agents, zero employees."""
 
     CEO = "I. Ertan Govdeli"
-    NAME = "TRoyAI E-Otomation Agency"
+    NAME = "TRoyAI E-Automation Agency"
 
     def __init__(self):
         self.operations = OperationsDepartment()

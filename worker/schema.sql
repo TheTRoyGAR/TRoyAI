@@ -1,4 +1,4 @@
--- TRoyAI E-Otomation Agency — D1 Database Schema
+-- TRoyAI E-Automation Agency — D1 Database Schema
 
 CREATE TABLE IF NOT EXISTS departments (
   id TEXT PRIMARY KEY,

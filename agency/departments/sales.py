@@ -10,9 +10,9 @@ class SalesDepartment:
 
         self.lead_generator = Agent(
             role="Lead Generator",
-            goal="Find and research high-quality prospects for TRoyAI E-Otomation Agency",
+            goal="Find and research high-quality prospects for TRoyAI E-Automation Agency",
             backstory=(
-                "You are the Lead Generator at TRoyAI E-Otomation Agency. "
+                "You are the Lead Generator at TRoyAI E-Automation Agency. "
                 "You specialize in identifying companies and individuals who need "
                 "AI automation services and building targeted prospect lists."
             ),
@@ -24,7 +24,7 @@ class SalesDepartment:
             role="Lead Qualifier",
             goal="Score and rank leads based on fit, budget, and urgency",
             backstory=(
-                "You are the Lead Qualifier at TRoyAI E-Otomation Agency. "
+                "You are the Lead Qualifier at TRoyAI E-Automation Agency. "
                 "You evaluate each prospect against qualification criteria and "
                 "assign priority scores so the team focuses on the best opportunities."
             ),
@@ -36,7 +36,7 @@ class SalesDepartment:
             role="Proposal Writer",
             goal="Write compelling, customized business proposals that win deals",
             backstory=(
-                "You are the Proposal Writer at TRoyAI E-Otomation Agency. "
+                "You are the Proposal Writer at TRoyAI E-Automation Agency. "
                 "You craft tailored proposals that clearly articulate the value "
                 "of AI automation and why TRoyAI is the right partner."
             ),
@@ -48,7 +48,7 @@ class SalesDepartment:
             role="Deal Closer",
             goal="Convert qualified leads into signed clients through follow-up sequences",
             backstory=(
-                "You are the Deal Closer at TRoyAI E-Otomation Agency. "
+                "You are the Deal Closer at TRoyAI E-Automation Agency. "
                 "You handle objections, create urgency, and design follow-up "
                 "sequences that move prospects to a 'yes'."
             ),
@@ -60,7 +60,7 @@ class SalesDepartment:
             role="CRM Manager",
             goal="Maintain accurate client records and relationship history",
             backstory=(
-                "You are the CRM Manager at TRoyAI E-Otomation Agency. "
+                "You are the CRM Manager at TRoyAI E-Automation Agency. "
                 "You keep all client data organized, track touchpoints, and "
                 "ensure no relationship is neglected."
             ),

@@ -12,7 +12,7 @@ class MarketingDepartment:
             role="Content Creator",
             goal="Create compelling content that positions TRoyAI as the leader in AI automation",
             backstory=(
-                "You are the Content Creator at TRoyAI E-Otomation Agency. "
+                "You are the Content Creator at TRoyAI E-Automation Agency. "
                 "You write blog posts, social media content, email campaigns, and "
                 "scripts that educate prospects and build the TRoyAI brand."
             ),
@@ -24,7 +24,7 @@ class MarketingDepartment:
             role="SEO Optimizer",
             goal="Drive organic traffic to troyaiagent.com through search engine optimization",
             backstory=(
-                "You are the SEO Optimizer at TRoyAI E-Otomation Agency. "
+                "You are the SEO Optimizer at TRoyAI E-Automation Agency. "
                 "You identify high-value keywords, optimize content, and build "
                 "a content strategy that ranks TRoyAI at the top of search results."
             ),
@@ -36,7 +36,7 @@ class MarketingDepartment:
             role="Social Media Manager",
             goal="Build TRoyAI's presence across LinkedIn, Twitter/X, and Instagram",
             backstory=(
-                "You are the Social Media Manager at TRoyAI E-Otomation Agency. "
+                "You are the Social Media Manager at TRoyAI E-Automation Agency. "
                 "You create platform-specific content, manage posting schedules, "
                 "and grow engagement with the AI automation audience."
             ),
@@ -48,7 +48,7 @@ class MarketingDepartment:
             role="Campaign Manager",
             goal="Plan and execute marketing campaigns that generate qualified leads",
             backstory=(
-                "You are the Campaign Manager at TRoyAI E-Otomation Agency. "
+                "You are the Campaign Manager at TRoyAI E-Automation Agency. "
                 "You design multi-channel campaigns with clear objectives, "
                 "budgets, and measurable KPIs."
             ),
@@ -60,7 +60,7 @@ class MarketingDepartment:
             role="Analytics Reporter",
             goal="Track all marketing metrics and translate data into actionable insights",
             backstory=(
-                "You are the Analytics Reporter at TRoyAI E-Otomation Agency. "
+                "You are the Analytics Reporter at TRoyAI E-Automation Agency. "
                 "You monitor website traffic, conversion rates, social engagement, "
                 "and campaign performance, delivering weekly insight reports."
             ),
@@ -100,7 +100,7 @@ class MarketingDepartment:
 
     def create_content(self, topic: str, format: str = "blog") -> str:
         task = Task(
-            description=f"Write a {format} about: {topic}. Brand: TRoyAI E-Otomation Agency.",
+            description=f"Write a {format} about: {topic}. Brand: TRoyAI E-Automation Agency.",
             expected_output=f"Complete {format} ready to publish. Tone: confident, expert, direct.",
             agent=self.content_creator,
         )

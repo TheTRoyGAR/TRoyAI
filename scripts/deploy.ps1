@@ -1,4 +1,4 @@
-# TRoyAI E-Otomation Agency — Cloudflare Deploy Script
+# TRoyAI E-Automation Agency — Cloudflare Deploy Script
 # Usage: .\scripts\deploy.ps1 -ApiEmail "troyaiagent@gmail.com" -ApiKey "cfk_..." -AgentApiKey "TRoy-..."
 
 param(

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""TRoyAI E-Otomation Agency — Entry Point"""
+"""TRoyAI E-Automation Agency — Entry Point"""
 import os
 import sys
 import json

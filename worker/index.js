@@ -26,12 +26,12 @@ export default {
 
     try {
       if (path === "/api/health") {
-        return json({ ok: true, agency: "TRoyAI E-Otomation Agency", status: "online" }, cors);
+        return json({ ok: true, agency: "TRoyAI E-Automation Agency", status: "online" }, cors);
       }
 
       if (path === "/api/status") {
         return json({
-          agency: "TRoyAI E-Otomation Agency",
+          agency: "TRoyAI E-Automation Agency",
           ceo: "I. Ertan Govdeli",
           departments: ["operations", "sales", "marketing", "finance", "cto"],
           agents_per_department: 5,

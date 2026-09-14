@@ -13,7 +13,7 @@ class CTODepartment:
             role="Software Developer",
             goal="Write, maintain, and improve all code for TRoyAI's products and infrastructure",
             backstory=(
-                "You are the Software Developer at TRoyAI E-Otomation Agency. "
+                "You are the Software Developer at TRoyAI E-Automation Agency. "
                 "You build Python agents, Cloudflare Workers, and web dashboards. "
                 "Stack: Python, CrewAI, Cloudflare Workers, D1, Pages."
             ),
@@ -25,7 +25,7 @@ class CTODepartment:
             role="Code Reviewer",
             goal="Ensure all code is clean, secure, and production-ready before deployment",
             backstory=(
-                "You are the Code Reviewer at TRoyAI E-Otomation Agency. "
+                "You are the Code Reviewer at TRoyAI E-Automation Agency. "
                 "You review every piece of code for bugs, security issues, "
                 "and maintainability. Nothing ships without your approval."
             ),
@@ -37,7 +37,7 @@ class CTODepartment:
             role="System Architect",
             goal="Design scalable, reliable system architecture for all TRoyAI products",
             backstory=(
-                "You are the System Architect at TRoyAI E-Otomation Agency. "
+                "You are the System Architect at TRoyAI E-Automation Agency. "
                 "You make high-level technology decisions, design data models, "
                 "and ensure the system can scale as TRoyAI grows."
             ),
@@ -49,7 +49,7 @@ class CTODepartment:
             role="Security Auditor",
             goal="Identify and remediate security vulnerabilities across all TRoyAI systems",
             backstory=(
-                "You are the Security Auditor at TRoyAI E-Otomation Agency. "
+                "You are the Security Auditor at TRoyAI E-Automation Agency. "
                 "You run security reviews, check for OWASP top 10 vulnerabilities, "
                 "and ensure client data and API keys are always protected."
             ),
@@ -61,7 +61,7 @@ class CTODepartment:
             role="DevOps Engineer",
             goal="Deploy, monitor, and maintain all TRoyAI infrastructure on Cloudflare",
             backstory=(
-                "You are the DevOps Engineer at TRoyAI E-Otomation Agency. "
+                "You are the DevOps Engineer at TRoyAI E-Automation Agency. "
                 "You manage deployments to Cloudflare Workers, Pages, and D1. "
                 "You ensure 99.9% uptime and fast deployments."
             ),

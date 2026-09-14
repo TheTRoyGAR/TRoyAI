@@ -1,7 +1,7 @@
 [project]
 name = "troyai-agency"
 version = "1.0.0"
-description = "TRoyAI E-Otomation Agency — Fully AI-Agent-Automated Company"
+description = "TRoyAI E-Automation Agency — Fully AI-Agent-Automated Company"
 requires-python = ">=3.11"
 dependencies = [
     "crewai>=0.80.0",

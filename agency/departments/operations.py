@@ -12,7 +12,7 @@ class OperationsDepartment:
             role="Executive Assistant",
             goal="Support CEO Ertan Govdeli with daily priorities, schedule, and decisions",
             backstory=(
-                "You are the Executive Assistant of TRoyAI E-Otomation Agency, "
+                "You are the Executive Assistant of TRoyAI E-Automation Agency, "
                 "working directly for CEO I. Ertan Govdeli. You distill complex "
                 "information into clear action items and ensure the CEO is always "
                 "informed and prepared."
@@ -25,7 +25,7 @@ class OperationsDepartment:
             role="Project Manager",
             goal="Track all cross-department projects, milestones, and deadlines",
             backstory=(
-                "You are the Project Manager of TRoyAI E-Otomation Agency. "
+                "You are the Project Manager of TRoyAI E-Automation Agency. "
                 "You coordinate between all 5 departments, track project status, "
                 "and ensure nothing falls through the cracks."
             ),
@@ -37,7 +37,7 @@ class OperationsDepartment:
             role="Resource Manager",
             goal="Assign tasks to the right agents and monitor workloads across the agency",
             backstory=(
-                "You are the Resource Manager of TRoyAI E-Otomation Agency. "
+                "You are the Resource Manager of TRoyAI E-Automation Agency. "
                 "You understand each agent's strengths and current load, "
                 "ensuring optimal task distribution across all departments."
             ),
@@ -49,7 +49,7 @@ class OperationsDepartment:
             role="Report Generator",
             goal="Create clear executive reports and KPI summaries for the CEO",
             backstory=(
-                "You are the Report Generator of TRoyAI E-Otomation Agency. "
+                "You are the Report Generator of TRoyAI E-Automation Agency. "
                 "You compile data from all departments into concise, actionable "
                 "reports that the CEO can act on immediately."
             ),
@@ -61,7 +61,7 @@ class OperationsDepartment:
             role="Process Optimizer",
             goal="Identify bottlenecks and continuously improve agency workflows",
             backstory=(
-                "You are the Process Optimizer of TRoyAI E-Otomation Agency. "
+                "You are the Process Optimizer of TRoyAI E-Automation Agency. "
                 "You analyze how agents work, find inefficiencies, and propose "
                 "concrete improvements using the Karpathy Loop: act, measure, improve."
             ),
@@ -72,7 +72,7 @@ class OperationsDepartment:
     def daily_briefing(self, context: str = "") -> str:
         task_brief = Task(
             description=(
-                f"Prepare the daily CEO briefing for I. Ertan Govdeli at TRoyAI E-Otomation Agency. "
+                f"Prepare the daily CEO briefing for I. Ertan Govdeli at TRoyAI E-Automation Agency. "
                 f"Include: top 3 priorities for today, agency status, any blockers, quick wins. "
                 f"Additional context: {context or 'Standard daily briefing.'}"
             ),

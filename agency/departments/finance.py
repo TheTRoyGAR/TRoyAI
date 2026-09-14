@@ -12,7 +12,7 @@ class FinanceDepartment:
             role="Bookkeeper",
             goal="Record and categorize all financial transactions accurately",
             backstory=(
-                "You are the Bookkeeper at TRoyAI E-Otomation Agency. "
+                "You are the Bookkeeper at TRoyAI E-Automation Agency. "
                 "You maintain clean financial records, categorize income and expenses, "
                 "and ensure the books are always up to date."
             ),
@@ -24,7 +24,7 @@ class FinanceDepartment:
             role="Budget Planner",
             goal="Create and maintain monthly and quarterly budgets for TRoyAI",
             backstory=(
-                "You are the Budget Planner at TRoyAI E-Otomation Agency. "
+                "You are the Budget Planner at TRoyAI E-Automation Agency. "
                 "You analyze spending patterns, forecast revenue, and build "
                 "budgets that keep TRoyAI profitable and growing."
             ),
@@ -36,7 +36,7 @@ class FinanceDepartment:
             role="Invoice Manager",
             goal="Create, send, and track all client invoices and payments",
             backstory=(
-                "You are the Invoice Manager at TRoyAI E-Otomation Agency. "
+                "You are the Invoice Manager at TRoyAI E-Automation Agency. "
                 "You manage the entire invoicing lifecycle — from creating "
                 "professional invoices to following up on overdue payments."
             ),
@@ -48,7 +48,7 @@ class FinanceDepartment:
             role="Financial Reporter",
             goal="Generate clear P&L, cash flow, and financial health reports",
             backstory=(
-                "You are the Financial Reporter at TRoyAI E-Otomation Agency. "
+                "You are the Financial Reporter at TRoyAI E-Automation Agency. "
                 "You translate raw financial data into clear executive reports "
                 "that help CEO Ertan Govdeli make informed decisions."
             ),
@@ -60,7 +60,7 @@ class FinanceDepartment:
             role="Cost Optimizer",
             goal="Identify cost-saving opportunities without compromising quality",
             backstory=(
-                "You are the Cost Optimizer at TRoyAI E-Otomation Agency. "
+                "You are the Cost Optimizer at TRoyAI E-Automation Agency. "
                 "You constantly look for ways to reduce expenses, negotiate better "
                 "rates, and improve the agency's margins."
             ),
@@ -71,7 +71,7 @@ class FinanceDepartment:
     def generate_report(self, period: str = "monthly") -> str:
         task_report = Task(
             description=(
-                f"Generate a {period} financial report for TRoyAI E-Otomation Agency. "
+                f"Generate a {period} financial report for TRoyAI E-Automation Agency. "
                 f"Include: revenue summary, expense categories, profit margin, cash flow."
             ),
             expected_output=(
@@ -102,7 +102,7 @@ class FinanceDepartment:
             description=(
                 f"Create a professional invoice for client: {client}. "
                 f"Services: {services}. Amount: {amount}. "
-                f"From: TRoyAI E-Otomation Agency, CEO: I. Ertan Govdeli, "
+                f"From: TRoyAI E-Automation Agency, CEO: I. Ertan Govdeli, "
                 f"Email: troyaiagent@gmail.com, Domain: troyaiagent.com"
             ),
             expected_output="Complete invoice text ready to send, including all line items and payment terms.",
