@@ -1,0 +1,843 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TRoyAI™ — Company Presentation</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131110;
+    --surface-raised: #18150f;
+    --border: #221f1a;
+    --accent: #c8a96e;
+    --accent-soft: rgba(200, 169, 110, 0.12);
+    --accent-line: rgba(200, 169, 110, 0.35);
+    --text: #e9e6df;
+    --muted: #8a8276;
+    --muted-dim: #5c574d;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    font-weight: 400;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 96px max(24px, calc(50% - 420px));
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--accent-line);
+  }
+
+  p { line-height: 1.7; color: var(--text); max-width: 640px; }
+  .lede { font-size: 19px; color: var(--text); }
+  .muted { color: var(--muted); }
+
+  a { color: var(--accent); }
+
+  /* ---------- progress rail ---------- */
+  .rail {
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 50;
+  }
+  .rail a {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--muted-dim);
+    display: block;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .rail a.active { background: var(--accent); transform: scale(1.4); }
+  @media (max-width: 720px) { .rail { display: none; } }
+
+  /* ---------- cover ---------- */
+  .cover { justify-content: center; align-items: flex-start; padding-top: 64px; }
+  .cover .wordmark {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 40px;
+  }
+  .cover .wordmark sup { font-size: 9px; }
+  .cover h1 {
+    font-size: clamp(40px, 6.4vw, 74px);
+    line-height: 1.05;
+    max-width: 780px;
+  }
+  .cover h1 em { color: var(--accent); font-style: normal; }
+  .cover .sub {
+    margin-top: 28px;
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .cover .meta {
+    margin-top: 56px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cover .meta div { font-size: 13px; }
+  .cover .meta .k { color: var(--muted-dim); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; margin-bottom: 6px; }
+  .cover .meta .v { color: var(--text); font-family: ui-monospace, monospace; }
+
+  /* ---------- timeline (founder) ---------- */
+  .timeline {
+    margin-top: 44px;
+    border-left: 1px solid var(--border);
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    max-width: 620px;
+  }
+  .tl-item { position: relative; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -37px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--accent);
+  }
+  .tl-year {
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .tl-item h3 { font-size: 20px; margin: 0 0 8px; }
+  .tl-item p { font-size: 15.5px; color: var(--muted); margin: 0; }
+
+  /* ---------- stat row ---------- */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 40px;
+    max-width: 640px;
+  }
+  .stat-cell { background: var(--surface); padding: 22px 20px; }
+  .stat-cell .num { font-family: ui-monospace, monospace; font-size: 30px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stat-cell .label { font-size: 11.5px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ---------- dept grid ---------- */
+  .dept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 36px;
+    max-width: 640px;
+  }
+  .dept-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 16px 14px;
+  }
+  .dept-card .icon { color: var(--accent); font-size: 17px; margin-bottom: 8px; display: block; }
+  .dept-card .name { font-size: 13.5px; font-weight: 600; }
+  .dept-card .n { font-size: 11px; color: var(--muted-dim); margin-top: 3px; }
+  @media (max-width: 560px) { .dept-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---------- honesty box ---------- */
+  .honest-box {
+    margin-top: 40px;
+    max-width: 640px;
+    border: 1px solid var(--accent-line);
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 22px 26px;
+  }
+  .honest-box .eyebrow { margin-bottom: 10px; }
+  .honest-box p { color: var(--text); font-size: 15px; max-width: none; }
+  .honest-box p + p { margin-top: 10px; color: var(--muted); font-size: 14px; }
+
+  /* ---------- two column ---------- */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 780px;
+    margin-top: 12px;
+  }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; gap: 28px; } }
+  .two-col h3 { font-size: 16px; color: var(--accent); font-family: ui-monospace, monospace; letter-spacing: 0.01em; margin: 0 0 12px; text-transform: uppercase; font-size: 12px; }
+  .two-col p { font-size: 15px; }
+
+  /* ---------- pill list ---------- */
+  .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; max-width: 640px; }
+  .pill {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12.5px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-family: ui-monospace, monospace;
+  }
+  .pill.on { border-color: var(--accent-line); color: var(--accent); background: var(--accent-soft); }
+
+  /* ---------- growth cards ---------- */
+  .ask-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 40px;
+    max-width: 720px;
+  }
+  @media (max-width: 700px) { .ask-grid { grid-template-columns: 1fr; } }
+  .ask-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 28px 26px;
+  }
+  .ask-card .tag { font-family: ui-monospace, monospace; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; }
+  .ask-card h3 { font-size: 22px; margin: 12px 0 10px; }
+  .ask-card p { font-size: 14.5px; color: var(--muted); }
+
+  /* ---------- closing ---------- */
+  .closing { text-align: left; }
+  .closing .sign {
+    margin-top: 48px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    color: var(--text);
+  }
+  .closing .sign .line { width: 40px; height: 1px; background: var(--muted-dim); }
+  .closing .contact { margin-top: 40px; font-size: 13px; color: var(--muted); line-height: 2; }
+  .closing .contact a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .closing .contact a:hover { color: var(--accent); border-color: var(--accent-line); }
+
+  .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.shown { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .fade-in { transition: none; opacity: 1; transform: none; }
+  }
+
+  .section-num {
+    position: absolute;
+    top: 40px;
+    right: max(24px, calc(50% - 420px));
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--muted-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ---------- trip planner demo ---------- */
+  .demo-window {
+    margin-top: 28px;
+    max-width: 660px;
+    border: 1px solid var(--accent-line);
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 24px 60px -20px rgba(200, 169, 110, 0.25);
+  }
+  .demo-chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-raised);
+  }
+  .demo-chrome .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted-dim); }
+  .demo-chrome .url {
+    margin-left: 10px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .demo-live {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .demo-live .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(200, 169, 110, 0.6);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(200, 169, 110, 0.55); }
+    70% { box-shadow: 0 0 0 7px rgba(200, 169, 110, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(200, 169, 110, 0); }
+  }
+  .demo-body { padding: 20px 20px 24px; min-height: 190px; }
+  .demo-line {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .demo-line .who {
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted-dim);
+    padding-top: 3px;
+    width: 46px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+  .demo-query .who { color: var(--accent); }
+  .demo-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .demo-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 15px;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .demo-typing {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .demo-typing.shown { opacity: 1; }
+  .demo-typing span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--muted);
+    animation: bounce 1.1s ease-in-out infinite;
+  }
+  .demo-typing span:nth-child(2) { animation-delay: 0.15s; }
+  .demo-typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+  .demo-reply {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .demo-reply.shown { opacity: 1; transform: translateY(0); }
+  .demo-reply > .demo-text { margin-bottom: 10px; }
+  .demo-results { display: flex; flex-direction: column; gap: 7px; }
+  .demo-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface-raised);
+  }
+  .demo-result .glyph { font-size: 15px; flex-shrink: 0; }
+  .demo-result .info { flex: 1; min-width: 0; }
+  .demo-result .name { font-size: 12.5px; color: var(--text); font-weight: 600; }
+  .demo-result .meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .demo-result .price { font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--accent); flex-shrink: 0; text-align: right; }
+  .demo-result .verified {
+    font-size: 9px;
+    font-family: ui-monospace, monospace;
+    color: #7fae7a;
+    letter-spacing: 0.04em;
+  }
+  .demo-caption {
+    margin-top: 12px;
+    font-size: 11.5px;
+    color: var(--muted-dim);
+    font-family: ui-monospace, monospace;
+  }
+
+  .demo-booking {
+    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .demo-booking.shown { opacity: 1; transform: translateY(0); }
+  .demo-book-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #1a1508;
+    font-size: 12.5px;
+    font-weight: 700;
+    font-family: -apple-system, "Segoe UI", sans-serif;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .demo-book-btn.pressed { opacity: 0; transform: scale(0.96); position: absolute; pointer-events: none; }
+  .demo-confirmed {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(127, 174, 122, 0.35);
+    background: rgba(127, 174, 122, 0.1);
+    font-size: 12.5px;
+    color: #a8cfa4;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .demo-confirmed.shown { display: flex; opacity: 1; transform: translateY(0); }
+  .demo-confirmed .check {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #7fae7a; color: #0a0a0a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 900; flex-shrink: 0;
+  }
+
+  /* ---------- vibe evidence card (new) ---------- */
+  .vibe-evidence {
+    margin-top: 28px;
+    max-width: 640px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+  .vibe-evidence .row { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .vibe-evidence .row:last-child { border-bottom: none; }
+  .vibe-evidence .row .lang { font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--accent); width: 150px; flex-shrink: 0; }
+  .vibe-evidence .row .note { font-size: 13px; color: var(--muted); }
+</style>
+
+<nav class="rail" aria-hidden="true">
+  <a href="#s0"></a><a href="#s1"></a><a href="#s2"></a><a href="#s3"></a>
+  <a href="#s4"></a><a href="#s5"></a><a href="#s6"></a><a href="#s7"></a>
+  <a href="#s8"></a><a href="#s9"></a>
+</nav>
+
+<section id="s0" class="cover">
+  <div class="wordmark">TROY GROUP<sup>™</sup></div>
+  <h1>Twenty-five years of<br />building companies, now<br />four of them rebuilt as <em>AI agents</em>.</h1>
+  <p class="sub">A working case study, prepared by the founder.</p>
+  <div class="meta">
+    <div><div class="k">Prepared by</div><div class="v">I. Ertan Govdeli</div></div>
+    <div><div class="k">Company</div><div class="v"><a href="https://troyaiagent.com" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--accent-line);">troyaiagent.com</a></div></div>
+  </div>
+</section>
+
+<section id="s1">
+  <span class="section-num">01 / 09</span>
+  <div class="eyebrow">The founder</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,40px); max-width:600px;">One owner, four industries, two countries, twenty-five years.</h2>
+  <div class="timeline">
+    <div class="tl-item fade-in">
+      <div class="tl-year">1998 — Turkey</div>
+      <h3>Troy Travel Agency &amp; Troy Shipping Agency</h3>
+      <p>Founded together as part of a group of companies — the first time running travel and maritime/shipping operations as owner-operator, not employee.</p>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-year">2011 — Australia</div>
+      <h3>Relocation to Darwin, NT</h3>
+      <p>Moved to Australia and restarted — registering a new online travel agency here, managed in part through a free Google Business listing.</p>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-year">2022–2023</div>
+      <h3>Small-Business Mentorship Program</h3>
+      <p>Awarded a three-year free membership with a local small-business support program — a track record of institutional support along the way.</p>
+    </div>
+    <div class="tl-item fade-in">
+      <div class="tl-year">2026 — Today</div>
+      <h3>E-Automation / TRoy Group™</h3>
+      <p>Same owner, same instinct to run every part of the business personally — now applied through AI agents instead of additional headcount, starting with TRoyAI.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s2">
+  <span class="section-num">02 / 09</span>
+  <div class="eyebrow">The pattern</div>
+  <h2 class="display" style="font-size: clamp(26px,3.6vw,36px); max-width:640px;">Every one of these companies had the same owner doing every job.</h2>
+  <p class="lede muted" style="margin-top:20px;">Travel agent, shipping coordinator, sales, accounts, support — one person, across every venture, in two countries. That was sustainable at small scale. It stops being sustainable the moment there are eight companies under one holding structure, run by the same one person.</p>
+  <p class="lede" style="margin-top:16px; max-width:600px;">That's the actual problem TRoyAI was built to solve — not a general AI ambition, but a direct answer to twenty-five years of doing everything personally.</p>
+</section>
+
+<section id="s3">
+  <span class="section-num">03 / 09</span>
+  <div class="eyebrow">The build — TRoyAI™</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,40px); max-width:620px;">A working company, run entirely by AI agents.</h2>
+  <p class="lede muted" style="margin-top:14px; max-width:620px;">Live at <a href="https://troyaiagent.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-line);">troyaiagent.com</a>, built and operated solo — seven departments, thirty-one agents, a shared memory system agents read and write across department lines, two independent email accounts (internal support + external business), and a real research tool that finds and scores genuine prospect companies for review. The research pipeline itself never auto-sends — it found and ranked ten real, named Darwin businesses with observable automation gaps, and six of them received genuine outreach after founder review.</p>
+
+  <div class="dept-grid">
+    <div class="dept-card fade-in"><span class="icon">⚙</span><div class="name">Operations</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◈</span><div class="name">Sales</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◉</span><div class="name">Marketing</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◆</span><div class="name">Finance</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">▲</span><div class="name">CTO</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">✉</span><div class="name">Email (Support)</div><div class="n">3 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">✉</span><div class="name">Email (Agent)</div><div class="n">3 agents</div></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell"><div class="num">7</div><div class="label">Departments</div></div>
+    <div class="stat-cell"><div class="num">31</div><div class="label">Agents</div></div>
+    <div class="stat-cell"><div class="num">1</div><div class="label">Employee</div></div>
+    <div class="stat-cell"><div class="num">0</div><div class="label">Paying customers</div></div>
+  </div>
+
+  <div class="honest-box fade-in">
+    <div class="eyebrow" style="margin-bottom:8px;">Honest state, not a pitch exaggeration</div>
+    <p>TRoyAI is live and functioning — real infrastructure, real automated email handling, a real research pipeline that finds genuine business opportunities. It has not yet taken a paying customer; the site only went live this year.</p>
+    <p>This presentation is built on what's actually running today, not projected numbers. That is deliberate.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <span class="section-num">04 / 09</span>
+  <div class="eyebrow">The build — TRoyGO™</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,40px); max-width:600px;">Taking the same template back to where it started: travel.</h2>
+  <div class="two-col">
+    <div>
+      <h3>Then</h3>
+      <p>Troy Travel Agency, run by hand — one owner handling bookings, guides, itineraries, and client relationships directly, first in Turkey, then rebuilt in Australia.</p>
+    </div>
+    <div>
+      <h3>Next</h3>
+      <p>TRoyGO™ — an unmanned, AI-agent-run travel agency using the exact department/agent structure proven in TRoyAI, applied to twenty-five years of real travel and logistics know-how instead of a generic template.</p>
+    </div>
+  </div>
+
+  <div class="honest-box fade-in" style="margin-top:32px; max-width:680px;">
+    <div class="eyebrow" style="margin-bottom:8px;">Live at <a href="https://troytravelagency.com" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--accent-line);">troytravelagency.com</a> — real infrastructure, not a mockup</div>
+    <p>TRoyGO™ runs on a real Postgres database, not placeholder data — bookings, owner approvals, and a partner-application system (with real file uploads) for outside travel experts to apply and be reviewed, all backed by an owner-only admin dashboard. It runs its own daily research agents finding genuine hotels, rental cars, tour packages, and cruises, and queries Duffel's real flight API directly for live pricing and routes.</p>
+    <p>Flights are still in Duffel's test mode pending business verification — the company's real ABN (30 302 098 137) is now active, with a formal "TROYGO" business name registration in progress, which is what unlocks live flight data.</p>
+  </div>
+
+  <div class="honest-box fade-in" style="margin-top:20px; max-width:680px;">
+    <div class="eyebrow" style="margin-bottom:8px;">New — Travel Guide, live in 5 cities</div>
+    <p>Darwin, Istanbul, Tokyo, Bangkok and Sydney each now have a dedicated guide page with a genuinely live "[City] Today" block — real current temperature, UV index and sunrise/sunset, pulled hourly from free public weather APIs, not a static number. Each page pairs that with a real evergreen events calendar and cross-links straight into TRoyGO's actual bookable packages and hotels for that city.</p>
+    <p>Built on one shared engine, so adding another destination is now a small, fast addition rather than a rebuild.</p>
+  </div>
+
+  <div class="demo-window" id="planner-demo">
+    <div class="demo-chrome">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="url"><a href="https://troytravelagency.com/trip-planner" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none;">troytravelagency.com/trip-planner</a></span>
+      <span class="demo-live"><span class="pulse"></span>LIVE</span>
+    </div>
+    <div class="demo-body">
+      <div class="demo-line demo-query">
+        <span class="who">You</span>
+        <span class="demo-text" id="demo-typed"></span>
+      </div>
+      <div class="demo-line" id="demo-typing-row" style="display:none;">
+        <span class="who">TRoyGO™</span>
+        <div class="demo-typing" id="demo-typing"><span></span><span></span><span></span></div>
+      </div>
+      <div class="demo-line demo-reply" id="demo-reply">
+        <span class="who">TRoyGO™</span>
+        <div style="flex:1;">
+          <div class="demo-text">5 days in Sydney, mid-range — here's a real starting point:</div>
+          <div class="demo-results">
+            <div class="demo-result">
+              <span class="glyph">🏨</span>
+              <div class="info"><div class="name">Park Hyatt Sydney</div><div class="meta">5★ · <span class="verified">✓ verified live</span></div></div>
+              <div class="price">$248/night</div>
+            </div>
+            <div class="demo-result">
+              <span class="glyph">🚗</span>
+              <div class="info"><div class="name">Suzuki Swift · Sydney Airport</div><div class="meta">Economy · <span class="verified">✓ verified live</span></div></div>
+              <div class="price">$36/day</div>
+            </div>
+            <div class="demo-result">
+              <span class="glyph">🗺️</span>
+              <div class="info"><div class="name">Sydney &amp; Melbourne package</div><div class="meta">Real tour operator · <span class="verified">✓ verified live</span></div></div>
+              <div class="price">View deal</div>
+            </div>
+          </div>
+          <div class="demo-booking" id="demo-booking">
+            <span class="demo-book-btn" id="demo-book-btn">Complete This Trip →</span>
+            <div class="demo-confirmed" id="demo-confirmed">
+              <span class="check">✓</span> Booking request sent — TRoyGO™ confirms within minutes
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="demo-caption">Real query → real live TRoyGO™ trip planner, verbatim from a genuine run</p>
+</section>
+
+<section id="s5">
+  <span class="section-num">05 / 09</span>
+  <div class="eyebrow">The build — TRoyMAR™</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,40px); max-width:620px;">A real maritime agency, run entirely by AI agents.</h2>
+  <p class="lede muted" style="margin-top:14px; max-width:620px;">Live at <a href="https://troymaritime.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-line);">troymaritime.com</a> — a Hub Agent (General Agent) model for ship agency, husbandry, and cargo logistics. Five departments, twenty-two agents, the same shared-memory system as TRoyAI, live vessel tracking, and a genuine cargo &amp; logistics management skill grounded in real maritime-industry research — not just a port-call service.</p>
+
+  <div class="dept-grid">
+    <div class="dept-card fade-in"><span class="icon">◉</span><div class="name">Marketing</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◈</span><div class="name">Sales</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◆</span><div class="name">Finance</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">⚓</span><div class="name">Shipping</div><div class="n">6 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◎</span><div class="name">Management</div><div class="n">1 agent</div></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell"><div class="num">5</div><div class="label">Departments</div></div>
+    <div class="stat-cell"><div class="num">22</div><div class="label">Agents</div></div>
+    <div class="stat-cell"><div class="num">1</div><div class="label">Employee</div></div>
+    <div class="stat-cell"><div class="num">0</div><div class="label">Paying customers</div></div>
+  </div>
+
+  <div class="honest-box fade-in">
+    <div class="eyebrow" style="margin-bottom:8px;">Honest state, not a pitch exaggeration</div>
+    <p>TRoyMAR is live and functioning — real port-call planning, real husbandry coordination, and a real cargo &amp; logistics management skill added this week, grounded in actual maritime-industry research (real ship-agent duties, real supply-chain practice), not invented capability.</p>
+    <p>Not yet a paying customer. Built to prove the same AI-agent template TRoyAI validated extends cleanly to a second, genuinely different industry.</p>
+  </div>
+
+  <div class="honest-box fade-in" style="margin-top:20px; max-width:680px;">
+    <div class="eyebrow" style="margin-bottom:8px;">Rebuilt — global vessel tracker, and TRoyTEL™ launched</div>
+    <p>The old vessel-tracker design looked the part but its per-location "live" numbers — vessels in transit, anchored, awaiting — were fabricated, hardcoded values that never changed. The rebuilt <a href="https://troymaritime.com/tracker" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--accent-line);">/tracker</a> keeps the real live AIS map (47 real straits, canals and ports, click any one and the map genuinely re-centers there) and drops every invented number — only well-documented public statistics remain, clearly labelled as such.</p>
+    <p><strong style="color:var(--text)">TRoyTEL™</strong> — TRoy Group's own communications project — shipped its first real piece on the Contact page: a free browser video call (no app, no signup) alongside a message form that's honest about what it actually does. More to build here.</p>
+  </div>
+</section>
+
+<section id="s6">
+  <span class="section-num">06 / 09</span>
+  <div class="eyebrow">The build — TRoyMEDIA™</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,40px); max-width:620px;">A real TV/film production and talent agency, run entirely by AI agents.</h2>
+  <p class="lede muted" style="margin-top:14px; max-width:620px;">Live at <a href="https://troymediagency.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-line);">troymediagency.com</a> — production and casting with real support for both cast and crew, not just actors. Five departments, twenty-two agents, the same shared-memory and CEO Assistant structure as every TRoy Group company.</p>
+
+  <div class="dept-grid">
+    <div class="dept-card fade-in"><span class="icon">◉</span><div class="name">Marketing</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◈</span><div class="name">Sales &amp; Distribution</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◆</span><div class="name">Finance</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">🎬</span><div class="name">Production &amp; Casting</div><div class="n">6 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">📣</span><div class="name">Advertising</div><div class="n">5 agents</div></div>
+    <div class="dept-card fade-in"><span class="icon">◎</span><div class="name">Management</div><div class="n">1 agent</div></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell"><div class="num">6</div><div class="label">Departments</div></div>
+    <div class="stat-cell"><div class="num">28</div><div class="label">Agents</div></div>
+    <div class="stat-cell"><div class="num">1</div><div class="label">Employee</div></div>
+    <div class="stat-cell"><div class="num">0</div><div class="label">Paying customers</div></div>
+  </div>
+
+  <div class="honest-box fade-in">
+    <div class="eyebrow" style="margin-bottom:8px;">Honest state, not a pitch exaggeration</div>
+    <p>TRoyMEDIA is live and functioning — real casting-process planning and production scheduling, real script development and crew support (cinematographers, editors, designers, every below-the-line role, not just actors), and a real Advertising department building client ad campaigns, including AI-generated video ad production for TV, YouTube, and Google Ads — the fulfillment side of TRoyAI's own client-sourcing work.</p>
+    <p>Not yet a paying customer. The fourth company built on the same proven template.</p>
+  </div>
+</section>
+
+<section id="s7">
+  <span class="section-num">07 / 09</span>
+  <div class="eyebrow">TRoyVibe™ — from prototype to production</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,40px); max-width:640px;">Teaching agents — and people — to actually understand each other.</h2>
+  <p class="lede muted" style="margin-top:14px; max-width:640px;">TRoyAI's departments already shared knowledge with each other, but what actually got shared was a raw, unstructured wall of text — no explicit intent, no confidence marker, no honest flag for "this part is uncertain." TRoyVibe™ started as the fix for that.</p>
+  <p class="lede" style="margin-top:12px; max-width:640px;">It's no longer just a converter sitting outside the agency. TRoyVibe™ now gates every brief that reaches TRoyAI's CEO Assistant: raw input is read for real intent and confidence first, and anything short of "clear" gets a genuine clarifying question back — not a guess — before any department is delegated work.</p>
+
+  <div class="stat-row">
+    <div class="stat-cell"><div class="num">6</div><div class="label">Languages tested</div></div>
+    <div class="stat-cell"><div class="num">4</div><div class="label">Companies live on shared memory</div></div>
+    <div class="stat-cell"><div class="num">1</div><div class="label">Fabrication caught &amp; blocked live</div></div>
+  </div>
+
+  <div class="vibe-evidence fade-in">
+    <div class="row"><span class="lang mono">6 languages, 4 scripts</span><span class="note">Turkish, Arabic, Chinese, Japanese, Russian, English — including catching a hedge word mid-sentence and full input/output language decoupling.</span></div>
+    <div class="row"><span class="lang mono">Ambiguous intake</span><span class="note">"Maybe run something for that client, not sure which one" — correctly refused to guess, asked which client and what task, before any department saw it.</span></div>
+    <div class="row"><span class="lang mono">Cross-task recall</span><span class="note">A later brief's delegation genuinely pulled up an earlier interpreted brief from memory as relevant context — a real similarity-search hit, not scripted.</span></div>
+    <div class="row"><span class="lang mono">Cross-run learning (TRoyMAR)</span><span class="note">Re-running a brief the agency had previously scored 4/10 for scope creep, the CEO Assistant recalled that exact prior mistake and tightened the plan before delegating again.</span></div>
+    <div class="row"><span class="lang mono">Fabrication caught (TRoyAI)</span><span class="note">Sales and Finance invented a named client and a 268–710% ROI figure. REVIEW caught it, discarded it, and shipped a corrected, compliant package instead.</span></div>
+  </div>
+
+  <div class="honest-box fade-in" style="margin-top:28px; max-width:680px;">
+    <div class="eyebrow" style="margin-bottom:8px;">Status, honestly</div>
+    <p>Shipped, not just validated. TRoyAI now runs the same real shared-memory system already live in TRoyMAR, TRoyMEDIA, and TRoyGO — and is the first of the four to gate it with TRoyVibe's honest-confidence read before any department touches a brief.</p>
+    <p>Hindi, Korean, and several other languages remain untested. This is one company's intake path, not yet every entry point across the group.</p>
+  </div>
+</section>
+
+<section id="s8">
+  <span class="section-num">08 / 09</span>
+  <div class="eyebrow">Where this is going</div>
+  <h2 class="display" style="font-size: clamp(28px,4vw,38px); max-width:600px;">Four companies live, the same template proven, growing from here.</h2>
+  <div class="ask-grid" style="grid-template-columns: 1fr; max-width: 640px;">
+    <div class="ask-card fade-in">
+      <div class="tag">Real growth, not a projection</div>
+      <h3>The pattern, still running</h3>
+      <p>TRoy Group™ now runs four real companies on this template — TRoyAI, TRoyGO, TRoyMAR, and TRoyMEDIA — with more planned. Every addition has been a genuine expansion of what the agents can actually do, not a repaint of the same four boxes. This is what twenty-five years of running companies personally looks like, once it no longer needs hands.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s9" class="closing">
+  <span class="section-num">09 / 09</span>
+  <div class="eyebrow">Closing</div>
+  <h2 class="display" style="font-size: clamp(30px,4.4vw,44px); max-width:600px;">Twenty-five years of running companies by hand. Now building the version that doesn't need hands at all — and studying why people decide the way they do, to build it better.</h2>
+  <div class="sign"><span class="line"></span> I. Ertan Govdeli — Founder &amp; CEO, E-Automation / TRoy Group™</div>
+  <div class="contact">
+    <a href="https://troyaiagent.com" target="_blank" rel="noopener noreferrer">troyaiagent.com</a> · <a href="mailto:agent@troyaiagent.com">agent@troyaiagent.com</a> · ABN 30 302 098 137
+  </div>
+</section>
+
+<script>
+  var dots = document.querySelectorAll('.rail a');
+  var sections = document.querySelectorAll('section');
+  var fadeEls = document.querySelectorAll('.fade-in');
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) e.target.classList.add('shown');
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(function (el) { io.observe(el); });
+
+  var navIo = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var idx = Array.prototype.indexOf.call(sections, e.target);
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(function (s) { navIo.observe(s); });
+
+  // Trip planner demo: types out the query, shows a "thinking" indicator,
+  // then reveals real matched results one by one — plays once when it
+  // scrolls into view.
+  (function () {
+    var demo = document.getElementById('planner-demo');
+    var typedEl = document.getElementById('demo-typed');
+    var replyEl = document.getElementById('demo-reply');
+    var typingRow = document.getElementById('demo-typing-row');
+    var typingEl = document.getElementById('demo-typing');
+    var bookingEl = document.getElementById('demo-booking');
+    var bookBtn = document.getElementById('demo-book-btn');
+    var confirmedEl = document.getElementById('demo-confirmed');
+    if (!demo || !typedEl || !replyEl || !typingRow || !typingEl || !bookingEl || !bookBtn || !confirmedEl) return;
+    var query = 'Plan 5 days in Sydney for 2 adults, mid-range budget';
+    var played = false;
+
+    function playDemo() {
+      if (played) return;
+      played = true;
+      var i = 0;
+      var cursor = document.createElement('span');
+      cursor.className = 'demo-cursor';
+      typedEl.appendChild(document.createTextNode(''));
+      typedEl.appendChild(cursor);
+      var timer = setInterval(function () {
+        if (i >= query.length) {
+          clearInterval(timer);
+          cursor.remove();
+          typingRow.style.display = 'flex';
+          setTimeout(function () { typingEl.classList.add('shown'); }, 30);
+          setTimeout(function () {
+            typingRow.style.display = 'none';
+            replyEl.classList.add('shown');
+            var results = replyEl.querySelectorAll('.demo-result');
+            results.forEach(function (r, idx) {
+              r.style.opacity = '0';
+              r.style.transform = 'translateY(4px)';
+              r.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+              setTimeout(function () {
+                r.style.opacity = '1';
+                r.style.transform = 'translateY(0)';
+              }, 150 * idx);
+            });
+            var resultsSettled = 150 * results.length + 500;
+            setTimeout(function () { bookingEl.classList.add('shown'); }, resultsSettled);
+            setTimeout(function () {
+              bookBtn.classList.add('pressed');
+              confirmedEl.classList.add('shown');
+            }, resultsSettled + 1300);
+          }, 1400);
+          return;
+        }
+        typedEl.insertBefore(document.createTextNode(query[i]), cursor);
+        i++;
+      }, 32);
+    }
+
+    var demoIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) playDemo();
+      });
+    }, { threshold: 0.5 });
+    demoIo.observe(demo);
+  })();
+</script>
+
+</body></html>
