@@ -1,14 +1,13 @@
-const API = "https://api.troyaiagent.com";
-const API_KEY = "TRoy-3fdc2d7e6f8e59dfc45946e1a0a483c1";
-
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${API_KEY}`,
-};
+// Calls go through this dashboard's own Worker (/api/agency/*), which holds
+// the real AGENT_API_KEY server-side and forwards to api.troyaiagent.com.
+// The key never reaches the browser — see dashboard/_worker.js. Changed
+// 2026-09-28 after a real CTO security audit found the key hardcoded in
+// plaintext here, giving anyone who viewed page source full API access.
+const headers = { "Content-Type": "application/json" };
 
 async function checkStatus() {
   try {
-    const res = await fetch(`${API}/api/health`, { headers });
+    const res = await fetch("/api/agency/health", { headers });
     const dot = document.getElementById("status-dot");
     if (res.ok) {
       dot.classList.add("online");
@@ -23,7 +22,7 @@ async function checkStatus() {
 
 async function loadTasks() {
   try {
-    const res = await fetch(`${API}/api/tasks`, { headers });
+    const res = await fetch("/api/agency/tasks", { headers });
     if (!res.ok) return;
     const data = await res.json();
     const tasks = data.tasks || [];
@@ -53,7 +52,7 @@ async function loadTasks() {
 
 async function queueTask(dept, task) {
   try {
-    const res = await fetch(`${API}/api/tasks`, {
+    const res = await fetch("/api/agency/tasks", {
       method: "POST",
       headers,
       body: JSON.stringify({ department: dept, task }),
@@ -110,6 +109,11 @@ function renderMessages(messages) {
     .join("");
 }
 
+function openGmailBtn(email) {
+  const addr = encodeURIComponent(email);
+  return `<a class="open-gmail-btn" href="https://mail.google.com/mail/u/0/?authuser=${addr}" target="_blank" rel="noopener">📬 Open Gmail</a>`;
+}
+
 function accountCardHtml(acc) {
   if (acc.status === "not_connected") {
     return `
@@ -117,6 +121,7 @@ function accountCardHtml(acc) {
       <span class="email-account-name">${escapeHtml(acc.label)}</span>
       <span class="email-account-address">${escapeHtml(acc.email)}</span>
       <span class="email-status not-connected">Not connected</span>
+      ${openGmailBtn(acc.email)}
     </div>`;
   }
   if (acc.status === "error") {
@@ -125,6 +130,7 @@ function accountCardHtml(acc) {
       <span class="email-account-name">${escapeHtml(acc.label)}</span>
       <span class="email-account-address">${escapeHtml(acc.email)}</span>
       <span class="email-status error">Error: ${escapeHtml(acc.error)}</span>
+      ${openGmailBtn(acc.email)}
     </div>`;
   }
   if (acc.status === "loading") {
@@ -133,6 +139,7 @@ function accountCardHtml(acc) {
       <span class="email-account-name">${escapeHtml(acc.label)}</span>
       <span class="email-account-address">${escapeHtml(acc.email)}</span>
       <span class="email-status loading">Loading…</span>
+      ${openGmailBtn(acc.email)}
     </div>`;
   }
   return `
@@ -140,6 +147,7 @@ function accountCardHtml(acc) {
     <span class="email-account-name">${escapeHtml(acc.label)}</span>
     <span class="email-account-address">${escapeHtml(acc.email)}</span>
     <span class="email-status connected">Connected</span>
+    ${openGmailBtn(acc.email)}
   </div>
   <div class="email-columns">
     <div class="email-column">

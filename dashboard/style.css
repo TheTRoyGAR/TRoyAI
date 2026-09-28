@@ -270,6 +270,18 @@ main { max-width: 1200px; margin: 0 auto; padding: 32px; }
 .email-status.error { color: var(--error); border-color: var(--error); }
 .email-status.loading { color: var(--accent); border-color: var(--accent-dim); }
 
+.open-gmail-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-dim);
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.open-gmail-btn:hover { background: rgba(200, 169, 110, 0.12); }
+
 .email-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -45,7 +45,10 @@ async function getAccessToken(env, refreshToken) {
       grant_type: "refresh_token",
     }),
   });
-  if (!resp.ok) throw new Error(`token_refresh_failed:${resp.status}`);
+  if (!resp.ok) {
+    const body = await resp.text();
+    throw new Error(`token_refresh_failed:${resp.status}:${body}`);
+  }
   const data = await resp.json();
   return data.access_token;
 }
@@ -77,6 +80,30 @@ async function fetchMessages(accessToken, labelId) {
     });
   }
   return messages;
+}
+
+// Proxies the dashboard's calls to the real agency Worker (api.troyaiagent.com)
+// so AGENT_API_KEY never reaches the browser. Added 2026-09-28 after a real
+// CTO security audit found the key hardcoded in plaintext in dashboard/app.js
+// — anyone who viewed page source got full, unauthenticated API access. This
+// endpoint is already behind the same Basic Auth check every other route
+// here goes through, so only an authenticated dashboard session can reach it.
+const AGENCY_API = "https://api.troyaiagent.com";
+
+async function proxyAgency(env, path, request) {
+  const upstream = await fetch(`${AGENCY_API}${path}`, {
+    method: request.method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${env.AGENT_API_KEY}`,
+    },
+    body: request.method === "POST" ? await request.text() : undefined,
+  });
+  const body = await upstream.text();
+  return new Response(body, {
+    status: upstream.status,
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 function handleInboxList(env) {
@@ -160,6 +187,12 @@ export default {
     if (url.pathname === "/api/inbox") {
       const account = url.searchParams.get("account");
       return account ? handleInboxAccount(env, account) : handleInboxList(env);
+    }
+    if (url.pathname === "/api/agency/health") {
+      return proxyAgency(env, "/api/health", request);
+    }
+    if (url.pathname === "/api/agency/tasks") {
+      return proxyAgency(env, "/api/tasks", request);
     }
 
     return env.ASSETS.fetch(request);
