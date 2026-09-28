@@ -1,10 +1,17 @@
+// Only the dashboard's own origin needs to call this API directly from a
+// browser (nothing normally does post-2026-09-28 — the dashboard proxies
+// through its own Worker now — but this stays as defense-in-depth against
+// a leaked key being used for cross-origin calls from an arbitrary site).
+const ALLOWED_ORIGIN = "https://dashboard.troyaiagent.com";
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    const requestOrigin = request.headers.get("Origin");
     const cors = {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": requestOrigin === ALLOWED_ORIGIN ? requestOrigin : ALLOWED_ORIGIN,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
       "Content-Type": "application/json",
