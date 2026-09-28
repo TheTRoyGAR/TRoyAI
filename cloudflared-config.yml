@@ -1,0 +1,7 @@
+tunnel: a4b28005-0817-40b0-96cc-e0d3fef97191
+credentials-file: C:\Users\ertan\.cloudflared\a4b28005-0817-40b0-96cc-e0d3fef97191.json
+
+ingress:
+  - hostname: backend.troyaiagent.com
+    service: http://127.0.0.1:8300
+  - service: http_status:404

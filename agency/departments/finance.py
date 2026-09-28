@@ -1,5 +1,6 @@
 from crewai import Agent, Task, Crew, Process
 from agency.core.llm import get_llm
+from agency.core.memory import recall_context
 
 
 class FinanceDepartment:
@@ -71,12 +72,15 @@ class FinanceDepartment:
     def generate_report(self, period: str = "monthly") -> str:
         task_report = Task(
             description=(
+                f"{recall_context(period)}"
                 f"Generate a {period} financial report for TRoyAI E-Automation Agency. "
                 f"Include: revenue summary, expense categories, profit margin, cash flow."
             ),
             expected_output=(
                 "Financial report with sections: REVENUE, EXPENSES, PROFIT MARGIN, "
-                "CASH FLOW, KEY INSIGHTS. Use placeholder numbers if no real data provided."
+                "CASH FLOW, KEY INSIGHTS. If real financial data was not provided in the "
+                "brief, say so plainly in each section and list exactly what real data is "
+                "needed to complete it — never invent plausible-sounding numbers to fill the gap."
             ),
             agent=self.financial_reporter,
         )
