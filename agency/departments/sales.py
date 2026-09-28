@@ -1,5 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from agency.core.llm import get_llm
+from agency.core.memory import shared_memory, remember, recall_context
+from agency.tools import search, scrape
 
 
 class SalesDepartment:
@@ -10,13 +12,22 @@ class SalesDepartment:
 
         self.lead_generator = Agent(
             role="Lead Generator",
-            goal="Find and research high-quality prospects for TRoyAI E-Automation Agency",
+            goal="Find and research REAL, verifiable prospects for TRoyAI E-Automation Agency — never invented companies.",
             backstory=(
                 "You are the Lead Generator at TRoyAI E-Automation Agency. "
-                "You specialize in identifying companies and individuals who need "
-                "AI automation services and building targeted prospect lists."
+                "You specialize in identifying real companies and individuals who need "
+                "AI automation services and building targeted prospect lists.\n\n"
+                "Hard rule: every prospect you list must be a real, findable business you "
+                "actually located via search/scrape — a real name, a real real-world detail "
+                "(what they actually do, actually sell, or actually struggle with), and a "
+                "real source (their own website, a directory listing, a news mention). "
+                "Never invent a plausible-sounding company name to fill a quota. If you can't "
+                "find enough real prospects matching the brief, report fewer — a short real "
+                "list beats a padded fake one."
             ),
             llm=llm,
+            tools=[search, scrape],
+            max_iter=40,
             verbose=False,
         )
 
@@ -70,13 +81,25 @@ class SalesDepartment:
 
     def run_pipeline(self, brief: str) -> str:
         task_generate = Task(
-            description=f"Generate 5 qualified prospect profiles for this target: {brief}",
-            expected_output="5 prospect profiles with: company, contact, need, estimated budget.",
+            description=(
+                f"{recall_context(brief)}"
+                f"Search for and find REAL, verifiable prospect businesses matching this "
+                f"target: {brief}\n\nFor each real business found, give: real company/business "
+                "name, what they actually do (from their real site/listing), the real gap or "
+                "need you can point to (with a source), and a realistic budget range for the "
+                "size of business it is — never a specific invented dollar figure presented as "
+                "confirmed."
+            ),
+            expected_output=(
+                "Real prospect profiles (as many as genuinely found, no padding to hit a "
+                "number): company, what they actually do, the real gap/need with its source, "
+                "realistic budget range."
+            ),
             agent=self.lead_generator,
         )
 
         task_qualify = Task(
-            description="Score and rank the 5 prospects from the lead generator. Top prospect first.",
+            description="Score and rank the real prospects from the lead generator. Top prospect first.",
             expected_output="Ranked list with score (1-10) and one-line reason per prospect.",
             agent=self.lead_qualifier,
             context=[task_generate],
@@ -93,10 +116,18 @@ class SalesDepartment:
             agents=[self.lead_generator, self.lead_qualifier, self.proposal_writer],
             tasks=[task_generate, task_qualify, task_proposal],
             process=Process.sequential,
+            memory=shared_memory,
             verbose=False,
         )
 
-        return str(crew.kickoff())
+        crew_output = crew.kickoff()
+        result = (
+            f"{crew_output.tasks_output[0].raw}\n\n---\n\n"
+            f"## Ranking\n\n{crew_output.tasks_output[1].raw}\n\n---\n\n"
+            f"## Proposal Outline (Top Prospect)\n\n{crew_output.tasks_output[2].raw}"
+        )
+        remember(f"Sales run_pipeline for '{brief}':\n{result}", scope="/dept/sales/run_pipeline", categories=["sales", "pipeline"])
+        return result
 
     def write_followup_sequence(self, prospect: str, stage: str) -> str:
         task = Task(
